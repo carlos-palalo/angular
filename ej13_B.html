@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- Controller con métodos en fichero aparte -->
+
+<body>
+    <h1>Controller con métodos en fichero aparte</h1>
+    <hr>
+    <div ng-app="myApp" ng-controller="personCtrl">
+
+        First Name: <input type="text" ng-model="firstName"><br>
+        Last Name: <input type="text" ng-model="lastName"><br>
+        <br>
+        Full Name: {{fullName()}}
+
+    </div>
+
+    <script src="js/personController.js"></script>
+</body>
+
+</html>

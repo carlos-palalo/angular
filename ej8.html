@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- Crear Directiva -->
+
+<body ng-app="myApp">
+    <h1>Crear directiva</h1>
+    <hr>
+    <w3-test-directive></w3-test-directive>
+    <hr>
+    <div w3-test-directive></div>
+    <hr>
+    <div class="w3-test-directive"></div>
+    <hr>
+    <!-- directive: w3-test-directive -->
+
+    <script>
+        var app = angular.module("myApp", []);
+        app.directive("w3TestDirective", function () {
+            return {
+                /* Valores de restrict: E (Element name), A (Attr), C (class), M (comment)... by default -> EA */
+                /*  Para el comentario
+                    restrict: "M",
+                    replace: true,
+                */
+                /*   Para la clase 
+                    restrict : "C",
+                */
+                template: "<h1>Made by a directive!</h1>"
+
+            };
+        });
+    </script>
+
+</body>
+
+</html>
