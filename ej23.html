@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- Select-Box -->
+<!-- http://localhost:5000/vacunas/ -->
+<style>
+    div {
+        border: 2px solid red;
+        padding: 10px 15px;
+    }
+</style>
+
+<body data-ng-app="myApp">
+    <h1>Select-Box</h1>
+    <div ng-controller="myCtrl">
+        <h2>ng-options</h2>
+        <select ng-model="selectedName" ng-options="x for x in names">
+        </select>
+
+        <hr>
+
+        <h2>ng-repeat</h2>
+        <select>
+            <option ng-repeat="x in names">{{x}}</option>
+        </select>
+    </div>
+
+    <h1>Select con objects</h1>
+    <div ng-controller="carsCtrl">
+        <h2>ng-repeat</h2>
+        <select ng-model="selectedCar">
+            <option ng-repeat="x in cars" value="{{x.model}}">{{x.model}}</option>
+            <!-- Si en value meto un objeto, tengo que poner ng-value en vez de value -->
+        </select>
+        <p>You selected: {{ selectedCar }}</p>
+
+        <hr>
+
+        <h2>ng-repeat con object</h2>
+        <select ng-model="selectedCar">
+            <option ng-repeat="x in cars" ng-value="{{x}}">{{x.model}}</option>
+        </select>
+
+        <p>You selected a {{selectedCar.color}} {{selectedCar.model}}</p>
+
+        <hr>
+
+        <h2>ng-options</h2>
+        <select ng-model="selectedCar" ng-options="x.model for x in cars">
+        </select>
+
+        <p>You selected: {{selectedCar.model}}</p>
+        <p>Its color is: {{selectedCar.color}}</p>
+    </div>
+
+    <h1>Data Source as an Object</h1>
+    <div ng-controller="cochesCtrl">
+        <h2>Object simple</h2>
+        <select ng-model="selectedCar" ng-options="x for (x, y) in cars">
+        </select>
+
+        <p>You selected: {{selectedCar}}</p>
+
+        <h2>Object múltiple</h2>
+        <select ng-model="selectedCar" ng-options="y.brand for (x, y) in coches">
+        </select>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope) {
+            $scope.names = ["Emil", "Tobias", "Linus"];
+        });
+
+        app.controller('carsCtrl', function ($scope) {
+            $scope.cars = [
+                { model: "Ford Mustang", color: "red" },
+                { model: "Fiat 500", color: "white" },
+                { model: "Volvo XC90", color: "black" }
+            ];
+        });
+
+        app.controller('cochesCtrl', function ($scope) {
+            $scope.cars = {
+                car01: "Ford",
+                car02: "Fiat",
+                car03: "Volvo"
+            };
+
+            $scope.coches = {
+                car01: { brand: "Ford", model: "Mustang", color: "red" },
+                car02: { brand: "Fiat", model: "500", color: "white" },
+                car03: { brand: "Volvo", model: "XC90", color: "black" }
+            };
+        });
+    </script>
+</body>
+
+</html>

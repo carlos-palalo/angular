@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- Events -->
+<!-- http://localhost:5000/vacunas/ -->
+<style>
+    div {
+        border: 2px solid red;
+        padding: 15px;
+        margin: 15px 0px;
+    }
+</style>
+
+<body data-ng-app="myApp">
+    <h1>Events</h1>
+    <div ng-controller="myCtrl">
+        <h2>ng-mousemove</h2>
+        <h3 ng-mousemove="count = count + 1">Mouse over me!</h3>
+        <h3>{{ count }}</h3>
+    </div>
+
+    <div ng-controller="clickCtrl">
+        <h2>ng-click</h2>
+        <button ng-click="count = count + 1">Click me!</button>
+        <p>{{ count }}</p>
+
+        <hr>
+
+        <h2>ng-click function</h2>
+        <button ng-click="myFunction()">Click me!</button>
+        <p>{{ countf }}</p>
+    </div>
+
+    <div ng-controller="toggleCtrl">
+        <h2>Toggle</h2>
+        <button ng-click="myFunc()">Click Me!</button>
+        <div ng-show="showMe">
+            <h1>Menu:</h1>
+            <p>Pizza</p>
+            <p>Pasta</p>
+            <p>Pesce</p>
+        </div>
+    </div>
+
+    <div ng-controller="myCtrl">
+        <h2>$event Object</h2>
+        <h3 ng-mousemove="myFunc($event)">Mouse Over Me!</h3>
+        <p>Coordinates: {{x + ', ' + y}}</p>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope) {
+            $scope.count = 0;
+            $scope.myFunc = function (myE) {
+                $scope.x = myE.clientX;
+                $scope.y = myE.clientY;
+            }
+        });
+
+        app.controller('clickCtrl', function ($scope) {
+            $scope.count = 0;
+            $scope.countf = 0;
+            $scope.myFunction = function () {
+                $scope.countf++;
+            }
+        });
+
+        app.controller('toggleCtrl', function ($scope) {
+            $scope.showMe = false;
+            $scope.myFunc = function () {
+                $scope.showMe = !$scope.showMe;
+            }
+        });
+    </script>
+</body>
+
+</html>

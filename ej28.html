@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- Custom Validation -->
+<!-- http://localhost:5000/vacunas/ -->
+<style>
+    input.ng-invalid {
+        /* Campo invalido */
+        background-color: pink;
+    }
+
+    input.ng-valid {
+        /* Campo valido */
+        background-color: lightgreen;
+    }
+</style>
+
+<body ng-app="myApp">
+    <h1>Custom Validation</h1>
+    <p>Try writing in the input field:</p>
+
+    <form name="myForm">
+        <input name="myInput" ng-model="myInput" required my-directive>
+    </form>
+
+    <p>The input's valid state is:</p>
+    <h1>{{myForm.myInput.$valid}}</h1>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.directive('myDirective', function () {
+            return {
+                require: 'ngModel',
+                link: function (scope, element, attr, mCtrl) {
+                    function myValidation(value) {
+                        if (value.indexOf("e") > -1) {
+                            mCtrl.$setValidity('charE', true);
+                        } else {
+                            mCtrl.$setValidity('charE', false);
+                        }
+                        return value;
+                    }
+                    mCtrl.$parsers.push(myValidation);
+                }
+            };
+        });
+        //mCtrl -> ngModelController
+        //At last, mCtrl.$parsers.push(myValidation); will add the myValidation function to an array of other functions, which will be executed every time the input value changes.
+    </script>
+
+    <p>The input field must contain the character "e" to be consider valid.</p>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- Form Validation -->
+<!-- http://localhost:5000/vacunas/ -->
+<style>
+    div{
+        border: 2px solid red;
+        padding: 15px;
+        margin: 15px 0 ;
+    }
+    input.ng-invalid {
+        /* Campo invalido */
+        background-color: pink;
+    }
+
+    input.ng-valid {
+        /* Campo valido */
+        background-color: lightgreen;
+    }
+
+    form.ng-pristine {
+        /* Form sin modificar */
+        background-color: lightblue;
+    }
+
+    form.ng-dirty {
+        /* Form modificado */
+        background-color: pink;
+    }
+</style>
+
+<body>
+    <h1>Form Validation</h1>
+    <div>
+        <form name="myForm" ng-app="">
+            <h2>Required</h2>
+            <input name="myInput" ng-model="myInput" required>
+            <p>The input's valid state is:</p>
+            <h3>{{myForm.myInput.$valid}}</h3>
+
+            <hr>
+
+            <h2>E-mail</h2>
+            <input name="emailInput" ng-model="emailInput" type="email">
+            <p>The input's valid state is:</p>
+            <h3>{{myForm.emailInput.$valid}}</h3>
+
+            <hr>
+
+            <h2>Form State and Input State</h2>
+            <input name="myName" ng-model="myName" required>
+            <span ng-show="myForm.myName.$touched && myForm.myName.$invalid">The name is required.</span>
+        </form>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.directive('myDirective', function() {
+            return {
+                require: 'ngModel',
+                link: function(scope, element, attr, mCtrl) {
+                    function myValidation(value) {
+                        if (value.indexOf("e") > -1) {
+                            mCtrl.$setValidity('charE', true);
+                        } else {
+                            mCtrl.$setValidity('charE', false);
+                        }
+                        return value;
+                    }
+                    mCtrl.$parsers.push(myValidation);
+                }
+            };
+        });
+        </script>
+</body>
+
+</html>

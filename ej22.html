@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- Tablas -->
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid gray;
+        border-collapse: collapse;
+        padding: 5px;
+        text-align: center;
+    }
+    /*  
+    table tr:nth-child(odd) {
+        background-color: #f1f1f1;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+    */
+</style>
+
+<body data-ng-app="myApp">
+    <!-- http://localhost:5000/vacunas/ -->
+    <h1>Tablas</h1>
+    <div ng-controller="myCtrl">
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Comunidad</th>
+                <th>Pzifer</th>
+                <th>Moderna</th>
+                <th>Dosis Administradas</th>
+                <th>Pauta Completa</th>
+            </tr>
+            <tr ng-repeat="x in names">
+                <td>{{ x.id }}</td>
+                <td>{{ x.comunidad }}</td>
+                <td>{{ x.pzifer }}</td>
+                <td>{{ x.moderna }}</td>
+                <td>{{ x.dosisAdministradas }}</td>
+                <td>{{ x.pautaCompleta }}</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div ng-controller="myCtrl">
+        <h2>orderBy Filter</h2>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Comunidad</th>
+                <th>Pzifer</th>
+                <th>Moderna</th>
+                <th>Dosis Administradas</th>
+                <th>Pauta Completa</th>
+            </tr>
+            <tr ng-repeat="x in names | orderBy : 'comunidad'">
+                <td>{{ x.id }}</td>
+                <td>{{ x.comunidad }}</td>
+                <td>{{ x.pzifer }}</td>
+                <td>{{ x.moderna }}</td>
+                <td>{{ x.dosisAdministradas }}</td>
+                <td>{{ x.pautaCompleta }}</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div ng-controller="myCtrl">
+        <h2>uppercase Filter</h2>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Comunidad</th>
+                <th>Pzifer</th>
+                <th>Moderna</th>
+                <th>Dosis Administradas</th>
+                <th>Pauta Completa</th>
+            </tr>
+            <tr ng-repeat="x in names">
+                <td>{{ x.id }}</td>
+                <td>{{ x.comunidad | uppercase }}</td>
+                <td>{{ x.pzifer }}</td>
+                <td>{{ x.moderna }}</td>
+                <td>{{ x.dosisAdministradas }}</td>
+                <td>{{ x.pautaCompleta }}</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div ng-controller="myCtrl">
+        <h2>$index</h2>
+        <table>
+            <tr>
+                <th>$index</th>
+                <th>Id</th>
+                <th>Comunidad</th>
+                <th>Pzifer</th>
+                <th>Moderna</th>
+                <th>Dosis Administradas</th>
+                <th>Pauta Completa</th>
+            </tr>
+            <tr ng-repeat="x in names | orderBy : 'comunidad'">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ x.id }}</td>
+                <td>{{ x.comunidad | uppercase }}</td>
+                <td>{{ x.pzifer }}</td>
+                <td>{{ x.moderna }}</td>
+                <td>{{ x.dosisAdministradas }}</td>
+                <td>{{ x.pautaCompleta }}</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div ng-controller="myCtrl">
+        <h2>$even y $odd</h2>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Comunidad</th>
+            </tr>
+            <tr ng-repeat="x in names">
+                <td ng-if="$odd" style="background-color:#f1f1f1">{{ x.id }}</td>
+                <td ng-if="$even">{{ x.id }}</td>
+                <td ng-if="$odd" style="background-color:#f1f1f1">{{ x.comunidad }}</td>
+                <td ng-if="$even">{{ x.comunidad }}</td>
+              </tr>
+        </table>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $http) {
+            $http.get("http://localhost:5000/vacunas/")
+                .then(function (response) {
+                    $scope.names = response.data;
+                });
+        });
+    </script>
+</body>
+
+</html>

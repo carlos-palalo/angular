@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- Http y sus métodos -->
+
+<body ng-app="myApp">
+    <h1>$http y sus métodos</h1>
+    <!-- http://localhost:5000/vacunas/ -->
+    <div ng-controller="myCtrl">
+        <h2>http</h2>
+        <p>{{myWelcome}}</p>
+    </div>
+    <hr>
+    <div ng-controller="getCtrl">
+        <h2>Método Get</h2>
+        <p>{{getVacuna}}</p>
+    </div>
+    <hr>
+    <div ng-controller="propertiesCtrl">
+        <h2>Propiedades</h2>
+        <p><b>Data: </b>{{content}}</p>
+        <p><b>Status: </b>{{statuscode}}</p>
+        <p><b>Statustext: </b>{{statustext}}</p>
+    </div>
+    <hr>
+    <div ng-controller="errorCtrl">
+        <h2>Errors</h2>
+        <p><b>Content: </b>{{content}}</p>
+    </div>
+    <hr>
+    <div ng-controller="myCtrl">
+        <h2>Datos recibidos en JSON</h2>
+        <ul>
+            <li ng-repeat="x in myWelcome">
+                Id: {{ x.id + ' -- Comunidad: ' + x.comunidad }}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $http) {
+            $http.get("http://localhost:5000/vacunas/")
+                .then(function (response) {
+                    console.log(response.data);
+                    $scope.myWelcome = response.data;
+                });
+        });
+
+        app.controller('getCtrl', function ($scope, $http) {
+            $http({
+                method: "GET",
+                url: "http://localhost:5000/vacunas/"
+            }).then(function mySuccess(response) {
+                $scope.getVacuna = response.data;
+            }, function myError(response) {
+                $scope.getVacuna = response.statusText;
+            });
+        });
+
+        app.controller('propertiesCtrl', function ($scope, $http) {
+            $http.get("http://localhost:5000/vacunas/")
+                .then(function (response) {
+                    $scope.content = response.data;
+                    $scope.statuscode = response.status;
+                    $scope.statustext = response.statusText;
+                });
+        });
+
+        app.controller('errorCtrl', function ($scope, $http) {
+            $http.get("wrongfilename.htm")
+                .then(function (response) {
+                    // First function handles success
+                    $scope.content = response.data;
+                }, function (response) {
+                    // Second function handles error
+                    $scope.content = "Something went wrong";
+                });
+        });
+    </script>
+</body>
+
+</html>
