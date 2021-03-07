@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- Includes -->
+<!-- http://localhost:5000/vacunas/ -->
+<style>
+    div {
+        border: 2px solid red;
+        padding: 15px;
+    }
+
+    table,
+    td,
+    th {
+        border: 1px solid gray;
+        border-collapse: collapse;
+        padding: 5px;
+        text-align: center;
+    }
+
+    table tr:nth-child(odd) {
+        background-color: #f1f1f1;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+</style>
+
+<body ng-app="myApp">
+    <h1>Includes</h1>
+    <h2>Archivo html</h2>
+    <div ng-include="'ej32_B.html'"></div>
+
+    <hr>
+
+    <h2>AngularJS Code</h2>
+    <div ng-controller="myCtrl" ng-include="'ej32_C.html'">
+    </div>
+
+    <hr>
+
+    <h2>Cross Domains</h2>
+    <div ng-include="'https://tryit.w3schools.com/angular_include.php'"></div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $http) {
+            $http.get("http://localhost:5000/vacunas/")
+                .then(function (response) {
+                    console.log(response.data);
+                    $scope.comunidad = response.data;
+                });
+        });
+
+        app.config(function ($sceDelegateProvider) {
+            $sceDelegateProvider.resourceUrlWhitelist([
+                'https://tryit.w3schools.com/**', //Dominio en concreto
+                '**' //Cualquier dominio
+            ]);
+        });
+    </script>
+</body>
+
+</html>

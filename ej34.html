@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+<!-- Routing -->
+<!-- http://localhost:5000/vacunas/ -->
+
+<body ng-app="myApp">
+
+    <p><a href="#!main">Main</a></p>
+
+    <a href="#!red">Red</a>
+    <a href="#!green">Green</a>
+    <a href="#!blue">Blue</a>
+
+    <div ng-view></div>
+
+    <script>
+        var app = angular.module("myApp", ["ngRoute"]);
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when("/main", {
+                    //template: "<h1>Main</h1>", //Con template escribo el html directamente
+                    templateUrl: "ej34_main.html",
+                    controller: "mainCtrl"
+                })
+                .when("/red", {
+                    templateUrl: "ej34_red.html",
+                    controller: "redCtrl"
+                })
+                .when("/green", {
+                    templateUrl: "ej34_green.html",
+                    controller: "greenCtrl"
+                })
+                .when("/blue", {
+                    templateUrl: "ej34_blue.html",
+                    controller: "blueCtrl"
+                })
+                .otherwise({
+                    template: "<h1>None</h1>"
+                });
+        });
+        
+        app.controller("mainCtrl", function ($scope) {
+            $scope.msg = "Estoy en el main";
+        });
+
+        app.controller("redCtrl", function ($scope) {
+            $scope.msg = "Estoy en red";
+        });
+
+        app.controller("blueCtrl", function ($scope) {
+            $scope.msg = "Estoy en blue";
+        });
+
+        app.controller("greenCtrl", function ($scope) {
+            $scope.msg = "Estoy en green";
+        });
+    </script>
+
+    <p>Click on the links to navigate to "red.htm", "green.htm", "blue.htm", or back to "main.htm"</p>
+</body>
+
+</html>

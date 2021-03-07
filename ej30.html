@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- AngularJS API -->
+<!-- http://localhost:5000/vacunas/ -->
+
+<body>
+    <h1>AngularJS API</h1>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <h2>lowercase</h2>
+        <p>{{ x1 }}</p>
+        <p>{{ x2 }}</p>
+
+        <h2>uppercase</h2>
+        <p>{{ y1 }}</p>
+        <p>{{ y2 }}</p>
+
+        <h2>isString</h2>
+        <p>{{ z1 }}</p>
+        <p>{{ z2 }}</p>
+
+        <h2>isNumber</h2>
+        <p>{{ a1 }}</p>
+        <p>{{ a2 }}</p>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope) {
+            $scope.x1 = "JOHN";
+            $scope.x2 = angular.lowercase($scope.x1);
+            
+            $scope.y1 = "stuart";
+            $scope.y2 = angular.uppercase($scope.y1);
+
+            $scope.z1 = "cadena";
+            $scope.z2 = angular.isString($scope.z1);
+
+            $scope.a1 = "otra cadena";
+            $scope.a2 = angular.isNumber($scope.a1);
+        });
+    </script>
+</body>
+
+</html>

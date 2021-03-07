@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+<!-- Animations -->
+<!-- http://localhost:5000/vacunas/ -->
+<style>
+    div {
+        transition: all linear 0.5s;
+        background-color: lightblue;
+        height: 100px;
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .ng-hide {
+        height: 0;
+        background-color: transparent;
+        top: -200px;
+        left: 0px;
+    }
+</style>
+
+
+<body ng-app="myApp">
+    <h1>Animations</h1>
+    <h2>Hide the DIV: <input type="checkbox" ng-model="myCheck"></h2>
+    <div ng-hide="myCheck"></div>
+    <script>
+        var app = angular.module('myApp', ['ngAnimate']);
+    </script>
+</body>
+<!--
+<body ng-app="ngAnimate">
+    <h1>Animations</h1>
+    Hide the DIV: <input type="checkbox" ng-model="myCheck">
+    <div ng-hide="myCheck"></div>
+</body>
+-->
+
+</html>
